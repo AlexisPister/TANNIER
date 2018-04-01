@@ -7,7 +7,7 @@ def create_empty_array_of_shape(shape):
     if shape: return [create_empty_array_of_shape(shape[1:]) for i in xrange(shape[0])]
 
 
-N = 7 #Longueur de la chaine
+N = 4 #Longueur de la chaine
 liste_rangee = range(N) #liste ordonnée à atteindre
 OK = 0 #Critere d'arret tant qu'on ne tombe pas sur la sequence alignee
 
@@ -57,3 +57,7 @@ for t in range(T):
 	Nb_perms.append(max(Dict.keys()))
 	
 print "Pour une taille de séquence de ", N, ": ", Nb_perms
+
+mon_fichier = open("Permut%d.txt"%N, "w")
+mon_fichier.write(str(Nb_perms))
+mon_fichier.close()
