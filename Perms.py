@@ -2,17 +2,12 @@
 import numpy as np
 import random
 
-#Initialise une liste de dimension voulue
-def create_empty_array_of_shape(shape):
-    if shape: return [create_empty_array_of_shape(shape[1:]) for i in xrange(shape[0])]
-
-
-N = 4 #Longueur de la chaine
+N = 3 #Longueur de la chaine
 liste_rangee = range(N) #liste ordonnée à atteindre
 OK = 0 #Critere d'arret tant qu'on ne tombe pas sur la sequence alignee
 
 
-#Retourne toutes les permutations sous forme d'une liste à partir d'une sequence en entree
+#Retourne toutes les permutations sous forme d'une liste à partir d'une sequence en entree (sous forme de liste)
 def Permutation(liste):
 	perms = []
 	for i in range(len(liste)+1):
@@ -27,14 +22,8 @@ def Permutation(liste):
 	return perms
 
 
-
-#Cree une chaine de longueur N triée aleatoirement
-liste = range(N)
-random.shuffle(liste)
-
-
-T = 50 #nombre de repetitions
-Nb_perms = [] #Stock le nombre de permutations necessaires
+T = 5 #nombre de repetitions
+Nb_perms = [] #Stock les nombres de permutations necessaires pour chaque séquence
 
 for t in range(T):
 	#Cree une chaine de longueur N triée aleatoirement
@@ -43,14 +32,14 @@ for t in range(T):
 	Dict = {0 : liste} #On stocke les nouvelles permutations de chaque pas de temps dans un dictionnaire
 	i = 1
 	OK = 0
-	while OK != 1:
+	while OK != 1: #Tant que la sequence n'est pas rangée
 		if i == 1:
-			Dict[i] = Permutation(Dict[i-1])
+			Dict[i] = Permutation(Dict[i-1]) 
 		else:
 			PERMS= []
-			for permu in Dict[i-1]:
+			for permu in Dict[i-1]: #Realise toutes les inversions possibles
 				PERMS = PERMS + Permutation(permu)
-			Dict[i] = PERMS
+			Dict[i] = PERMS #Stockage
 		
 		i += 1
 	
@@ -58,6 +47,6 @@ for t in range(T):
 	
 print "Pour une taille de séquence de ", N, ": ", Nb_perms
 
-mon_fichier = open("Permut%d.txt"%N, "w")
+mon_fichier = open("Resultats%d.txt"%N, "w")
 mon_fichier.write(str(Nb_perms))
 mon_fichier.close()
